@@ -9,20 +9,7 @@ import AuthLayout from "./pages/auth/AuthLayout";
 import { ClientsPage, HomePage, UsersPage } from "./pages/root/pages";
 import { AuthPage } from "./pages/auth/pages";
 
-import { useEffect } from "react";
-import { socket } from "./socket";
-
 function App() {
-  // useEffect(() => {
-  //   socket.on("connect", () => {
-  //     console.log("Connected to server");
-  //   });
-
-  //   socket.on("disconnect", () => {
-  //     console.log("Disconnected from server");
-  //   });
-  // }, []);
-
   return (
     <>
       <Routes>
