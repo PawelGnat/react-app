@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 
 import { loginSchema } from "../../utils/zod-schema";
+import { DB_URL } from "../../utils/database";
 
 import {
   FormControl,
@@ -41,11 +42,9 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
-        data,
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${DB_URL}/auth/login`, data, {
+        withCredentials: true,
+      });
 
       if (response.status === 200) {
         setToken(response.data.token);

@@ -8,6 +8,8 @@ import {
   useContext,
 } from "react";
 
+import { DB_URL } from "../utils/database";
+
 const INITIAL_STATE = {
   token: localStorage.getItem("token"),
   setToken: () => {},
@@ -34,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (token) {
       try {
         await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/auth/verify`,
+          `${DB_URL}/auth/verify`,
           { token },
           { withCredentials: true }
         );
