@@ -52,7 +52,6 @@ const LoginForm = () => {
         Cookies.set("api_auth_token", response.data.token, {
           expires: 7,
           secure: true,
-          sameSite: "None",
         });
         navigate("/");
       }
