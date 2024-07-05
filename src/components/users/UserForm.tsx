@@ -2,7 +2,7 @@ import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { socket } from "../../socket";
+// import { socket } from "../../socket";
 
 import { useUsersContext } from "../../context/UsersContext";
 import { useModalContext } from "../../context/ModalContext";
@@ -64,7 +64,7 @@ const UserForm = () => {
       });
 
       if (response.status === 200) {
-        socket.emit("sendUsers");
+        // socket.emit("sendUsers");
         dispatch({ type: "HIDE" });
       }
     } catch (error) {

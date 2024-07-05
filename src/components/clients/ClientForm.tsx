@@ -2,7 +2,7 @@ import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { socket } from "../../socket";
+// import { socket } from "../../socket";
 
 import { useClientsContext } from "../../context/ClientsContext";
 import { useUsersContext } from "../../context/UsersContext";
@@ -67,7 +67,7 @@ const ClientForm = () => {
         withCredentials: true,
       });
       if (response.status === 200) {
-        socket.emit("sendClients");
+        // socket.emit("sendClients");
         dispatch({ type: "HIDE" });
       }
     } catch (error) {

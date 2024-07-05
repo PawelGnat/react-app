@@ -1,5 +1,5 @@
 import axios from "axios";
-import { socket } from "../../socket";
+// import { socket } from "../../socket";
 
 import { useModalContext } from "../../context/ModalContext";
 
@@ -22,7 +22,7 @@ const DeleteUser = () => {
       });
 
       if (response.status === 200) {
-        socket.emit("sendUsers");
+        // socket.emit("sendUsers");
         dispatch({ type: "HIDE" });
       }
     } catch (error) {
