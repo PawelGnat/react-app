@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CSSProperties, ChangeEvent, useState } from "react";
-import { socket } from "../../socket";
+// import { socket } from "../../socket";
 
 import { useModalContext } from "../../context/ModalContext";
 import { useClientsContext } from "../../context/ClientsContext";
@@ -94,7 +94,7 @@ const ClientsTable = () => {
         }
       );
       if (response.status === 200) {
-        socket.emit("sendClients");
+        // socket.emit("sendClients");
       }
     } catch (error) {
       console.log(error);
