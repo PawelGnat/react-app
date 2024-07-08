@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useClientsContext } from "../../context/ClientsContext";
 import { useUsersContext } from "../../context/UsersContext";
 import { useModalContext } from "../../context/ModalContext";
+import { useSnackContext } from "../../context/SnackContext";
 
 import { clientSchema } from "../../utils/zod-schema";
 import { DB_URL } from "../../utils/database";
@@ -26,6 +27,7 @@ const ClientForm = () => {
   const { isLoading, clientId, dispatch } = useModalContext();
   const { clients } = useClientsContext();
   const { users } = useUsersContext();
+  const { setSnack } = useSnackContext();
   const client = clients.find((client) => client._id === clientId);
 
   const {
@@ -69,9 +71,16 @@ const ClientForm = () => {
       if (response.status === 200) {
         // socket.emit("sendClients");
         dispatch({ type: "HIDE" });
+        setSnack(response.data.message, response.data.status);
       }
     } catch (error) {
       console.log(error);
+
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.data) {
+          setSnack(error.response.data.error, error.response.data.status);
+        }
+      }
     } finally {
       dispatch({ type: "LOADING", payload: { isLoading: false } });
     }

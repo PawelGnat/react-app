@@ -2,6 +2,7 @@ import axios from "axios";
 // import { socket } from "../../socket";
 
 import { useModalContext } from "../../context/ModalContext";
+import { useSnackContext } from "../../context/SnackContext";
 
 import { DB_URL } from "../../utils/database";
 
@@ -9,6 +10,7 @@ import { Button, Stack } from "@mui/joy";
 
 const DeleteUser = () => {
   const { isLoading, userId, dispatch } = useModalContext();
+  const { setSnack } = useSnackContext();
 
   const onDelete = async (userId: string) => {
     if (isLoading) {
@@ -24,9 +26,16 @@ const DeleteUser = () => {
       if (response.status === 200) {
         // socket.emit("sendUsers");
         dispatch({ type: "HIDE" });
+        setSnack(response.data.message, response.data.status);
       }
     } catch (error) {
       console.log(error);
+
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.data) {
+          setSnack(error.response.data.error, error.response.data.status);
+        }
+      }
     } finally {
       dispatch({ type: "LOADING", payload: { isLoading: false } });
     }

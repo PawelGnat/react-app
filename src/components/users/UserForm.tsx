@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 import { useUsersContext } from "../../context/UsersContext";
 import { useModalContext } from "../../context/ModalContext";
+import { useSnackContext } from "../../context/SnackContext";
 
 import { userSchema } from "../../utils/zod-schema";
 import { DB_URL } from "../../utils/database";
@@ -22,6 +23,7 @@ import {
 const UserForm = () => {
   const { isLoading, userId, dispatch } = useModalContext();
   const { users } = useUsersContext();
+  const { setSnack } = useSnackContext();
   const user = users.find((user) => user._id === userId);
 
   const {
@@ -66,9 +68,16 @@ const UserForm = () => {
       if (response.status === 200) {
         // socket.emit("sendUsers");
         dispatch({ type: "HIDE" });
+        setSnack(response.data.message, response.data.status);
       }
     } catch (error) {
       console.log(error);
+
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.data) {
+          setSnack(error.response.data.error, error.response.data.status);
+        }
+      }
     } finally {
       dispatch({ type: "LOADING", payload: { isLoading: false } });
     }
