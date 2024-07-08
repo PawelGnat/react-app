@@ -5,6 +5,7 @@ import { CSSProperties, ChangeEvent, useState } from "react";
 import { useModalContext } from "../../context/ModalContext";
 import { useClientsContext } from "../../context/ClientsContext";
 import { useUsersContext } from "../../context/UsersContext";
+import { useSnackContext } from "../../context/SnackContext";
 
 import { DB_URL } from "../../utils/database";
 
@@ -47,6 +48,7 @@ const ClientsTable = () => {
   const [page, setPage] = useState(0);
   const [filter, setFilter] = useState("");
   const { clients, isLoading } = useClientsContext();
+  const { setSnack } = useSnackContext();
   const { users } = useUsersContext();
   const { dispatch } = useModalContext();
 
@@ -95,9 +97,16 @@ const ClientsTable = () => {
       );
       if (response.status === 200) {
         // socket.emit("sendClients");
+        setSnack(response.data.message, response.data.status);
       }
     } catch (error) {
       console.log(error);
+
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.data) {
+          setSnack(error.response.data.error, error.response.data.status);
+        }
+      }
     }
   };
 
