@@ -34,10 +34,7 @@ export const SnackProvider = ({ children }: { children: ReactNode }) => {
         open={open}
         variant="outlined"
         color={color}
-        onClose={(event, reason) => {
-          if (reason === "clickaway") {
-            return;
-          }
+        onClose={() => {
           setOpen(false);
         }}>
         {message}
