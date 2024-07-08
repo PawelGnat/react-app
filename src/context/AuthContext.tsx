@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import {
   createContext,
   useState,
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         );
       } catch (error) {
         localStorage.removeItem("token");
-        Cookies.remove("api_auth_token");
+        // Cookies.remove("api_auth_token");
         setToken(null);
       }
     }
