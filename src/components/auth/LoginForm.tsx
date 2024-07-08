@@ -50,8 +50,7 @@ const LoginForm = () => {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         Cookies.set("api_auth_token", response.data.token, {
-          expires: 7,
-          httpOnly: true,
+          expires: 1 / 2,
           secure: true,
           sameSite: "None",
         });
