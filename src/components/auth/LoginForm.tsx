@@ -46,15 +46,16 @@ const LoginForm = () => {
         withCredentials: true,
       });
 
+      console.log(response);
+
       if (response.status === 200) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
-        Cookies.set("api_auth_token", response.data.token, {
-          // expires: 12,
-          expires: 1,
-          secure: true,
-          sameSite: "none",
-        });
+        // Cookies.set("api_auth_token", response.data.token, {
+        //   // expires: 12,
+        //   secure: true,
+        //   sameSite: "none",
+        // });
         navigate("/");
       }
     } catch (error) {
