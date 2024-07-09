@@ -4,11 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthContext } from "../../context/AuthContext";
-import { useSnackContext } from "../../context/SnackContext";
+import { useAuthContext } from "@/context/AuthContext";
+import { useSnackContext } from "@/context/SnackContext";
 
-import { loginSchema } from "../../utils/zod-schema";
-import { DB_URL } from "../../utils/database";
+import { loginSchema } from "@/utils/zod-schema";
+import { DB_URL } from "@/utils/database";
 
 import {
   FormControl,

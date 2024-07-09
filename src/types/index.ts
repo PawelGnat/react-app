@@ -22,24 +22,6 @@ export type ApiError = {
   };
 };
 
-// export type SnackState = {
-//   open: boolean;
-//   message: string;
-//   color: "success" | "neutral" | "danger";
-// };
-
-// export type SnackStateAction =
-//   | {
-//       type: "OPEN_SNACKBAR";
-//       payload: {
-//         message: string;
-//         color: keyof SnackState["color"];
-//       };
-//     }
-//   | {
-//       type: "CLOSE_SNACKBAR";
-//     };
-
 export type ModalState = {
   isOpen: boolean;
   isLoading: boolean;

@@ -1,15 +1,17 @@
 import axios from "axios";
 // import { socket } from "../../socket";
 
-import { useModalContext } from "../../context/ModalContext";
-import { useSnackContext } from "../../context/SnackContext";
+import { useModalContext } from "@/context/ModalContext";
+import { useClientsContext } from "@/context/ClientsContext";
+import { useSnackContext } from "@/context/SnackContext";
 
-import { DB_URL } from "../../utils/database";
+import { DB_URL } from "@/utils/database";
 
 import { Button, Stack } from "@mui/joy";
 
 const DeleteClient = () => {
   const { isLoading, clientId, dispatch } = useModalContext();
+  const { setClients } = useClientsContext();
   const { setSnack } = useSnackContext();
 
   const onDelete = async (clientId: string) => {
@@ -25,6 +27,7 @@ const DeleteClient = () => {
 
       if (response.status === 200) {
         // socket.emit("sendClients");
+        setClients((prev) => prev.filter((client) => client._id !== clientId));
         dispatch({ type: "HIDE" });
         setSnack(response.data.message, response.data.status);
       }

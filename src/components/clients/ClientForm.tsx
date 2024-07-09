@@ -4,13 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 // import { socket } from "../../socket";
 
-import { useClientsContext } from "../../context/ClientsContext";
-import { useUsersContext } from "../../context/UsersContext";
-import { useModalContext } from "../../context/ModalContext";
-import { useSnackContext } from "../../context/SnackContext";
+import { useClientsContext } from "@/context/ClientsContext";
+import { useUsersContext } from "@/context/UsersContext";
+import { useModalContext } from "@/context/ModalContext";
+import { useSnackContext } from "@/context/SnackContext";
 
-import { clientSchema } from "../../utils/zod-schema";
-import { DB_URL } from "../../utils/database";
+import { clientSchema } from "@/utils/zod-schema";
+import { DB_URL } from "@/utils/database";
 
 import {
   FormControl,
@@ -23,9 +23,11 @@ import {
   Option,
 } from "@mui/joy";
 
+import { Client } from "@/types";
+
 const ClientForm = () => {
   const { isLoading, clientId, dispatch } = useModalContext();
-  const { clients } = useClientsContext();
+  const { clients, setClients } = useClientsContext();
   const { users } = useUsersContext();
   const { setSnack } = useSnackContext();
   const client = clients.find((client) => client._id === clientId);
@@ -58,6 +60,18 @@ const ClientForm = () => {
     return "post";
   };
 
+  const handleClients = (responseClient: Client) => {
+    if (clientId) {
+      return setClients((prev) =>
+        prev.map((client) =>
+          client._id === responseClient._id ? responseClient : client
+        )
+      );
+    }
+
+    setClients((prev) => [...prev, responseClient]);
+  };
+
   const onSubmit = async (data: z.infer<typeof clientSchema>) => {
     if (isLoading) {
       return;
@@ -70,6 +84,7 @@ const ClientForm = () => {
       });
       if (response.status === 200) {
         // socket.emit("sendClients");
+        handleClients(response.data.client);
         dispatch({ type: "HIDE" });
         setSnack(response.data.message, response.data.status);
       }

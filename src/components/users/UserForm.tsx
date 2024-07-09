@@ -4,12 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 // import { socket } from "../../socket";
 
-import { useUsersContext } from "../../context/UsersContext";
-import { useModalContext } from "../../context/ModalContext";
-import { useSnackContext } from "../../context/SnackContext";
+import { useUsersContext } from "@/context/UsersContext";
+import { useModalContext } from "@/context/ModalContext";
+import { useSnackContext } from "@/context/SnackContext";
 
-import { userSchema } from "../../utils/zod-schema";
-import { DB_URL } from "../../utils/database";
+import { userSchema } from "@/utils/zod-schema";
+import { DB_URL } from "@/utils/database";
 
 import {
   FormControl,
@@ -20,9 +20,11 @@ import {
   Input,
 } from "@mui/joy";
 
+import { User } from "@/types";
+
 const UserForm = () => {
   const { isLoading, userId, dispatch } = useModalContext();
-  const { users } = useUsersContext();
+  const { users, setUsers } = useUsersContext();
   const { setSnack } = useSnackContext();
   const user = users.find((user) => user._id === userId);
 
@@ -54,6 +56,18 @@ const UserForm = () => {
     return "post";
   };
 
+  const handleUsers = (responseUser: User) => {
+    if (userId) {
+      return setUsers((prev) =>
+        prev.map((user) =>
+          user._id === responseUser._id ? responseUser : user
+        )
+      );
+    }
+
+    setUsers((prev) => [...prev, responseUser]);
+  };
+
   const onSubmit = async (data: z.infer<typeof userSchema>) => {
     if (isLoading) {
       return;
@@ -67,6 +81,7 @@ const UserForm = () => {
 
       if (response.status === 200) {
         // socket.emit("sendUsers");
+        handleUsers(response.data.user);
         dispatch({ type: "HIDE" });
         setSnack(response.data.message, response.data.status);
       }
