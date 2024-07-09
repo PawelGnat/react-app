@@ -204,7 +204,7 @@ const ClientsTable = () => {
                   "--TableRow-hoverBackground": "transparent",
                 } as CSSProperties
               }>
-              <td colSpan={4} aria-hidden />
+              <td colSpan={5} aria-hidden />
             </tr>
           )}
           {filteredData.length === 0 && (
@@ -215,7 +215,7 @@ const ClientsTable = () => {
                   "--TableRow-hoverBackground": "transparent",
                 } as CSSProperties
               }>
-              <td colSpan={4} className="text-center">
+              <td colSpan={5} className="text-center">
                 No clients
               </td>
             </tr>
@@ -223,7 +223,7 @@ const ClientsTable = () => {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={4} className="bg-transparent">
+            <td colSpan={5} className="bg-transparent">
               <div className="flex gap-2 items-center justify-end ">
                 <FormControl orientation="horizontal" size="sm">
                   <FormLabel>Rows per page:</FormLabel>
