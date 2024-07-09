@@ -16,7 +16,7 @@ const Header = () => {
     localStorage.removeItem("token");
 
     try {
-      axios.post(`${DB_URL}/auth/logout`, {}, { withCredentials: true });
+      axios.get(`${DB_URL}/auth/logout`, { withCredentials: true });
     } catch (error) {
       console.log(error);
     }
