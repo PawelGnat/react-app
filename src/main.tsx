@@ -10,12 +10,12 @@ import { SnackProvider } from "./context/SnackContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <SnackProvider>
+    <AuthProvider>
+      <SnackProvider>
+        <BrowserRouter>
           <App />
-        </SnackProvider>
-      </AuthProvider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </SnackProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
